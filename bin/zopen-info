@@ -67,6 +67,24 @@ printPackageInfo() {
         exit 1
     fi 
 
+    #This will display the build dependencies
+    build_dependencies=$(echo "${remote_data}" | jq -r '.assets[0].build_dependencies | join(", ")')
+    runtime_dependencies=$(echo "${remote_data}" | jq -r '.assets[0].runtime_dependencies')
+
+    printHeader "==> Dependencies"
+    if [ -n "${build_dependencies}" ]; then
+      printf "%-20s %s\n" "Build:" "${build_dependencies}"
+    else
+      printf "%-20s %s\n" "Build:" "None"
+    fi
+
+    if [ -n "${runtime_dependencies}" ]; then
+      printf "%-20s %s\n" "Build:" "${runtime_dependencies}"
+    else
+      printf "%-20s %s\n" "Build:" "None"
+    fi
+
+
     name=$(echo "${remote_data}" | jq -r '.name')
     repo=$(echo "${remote_data}" | jq -r '.assets[0].url' | sed 's#/[^/]*$##') # Extract base URL
     repo=$(echo "${repo}" | sed 's#/[^/]*$##') # Strip /download
