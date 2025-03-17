@@ -77,11 +77,10 @@ printPackageInfo() {
     else
       printf "%-20s %s\n" "Build:" "None"
     fi
-
     if [ -n "${runtime_dependencies}" ]; then
-      printf "%-20s %s\n" "Build:" "${runtime_dependencies}"
+      printf "%-20s %s\n" "Runtime:" "${runtime_dependencies}"
     else
-      printf "%-20s %s\n" "Build:" "None"
+      printf "%-20s %s\n" "Runtime:" "None"
     fi
 
 
